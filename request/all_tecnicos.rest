@@ -1,0 +1,11 @@
+GET http://localhost:3001/api/tecnicos
+
+####
+
+POST http://localhost:3001/api/tecnicos 
+Content-Type: application/json
+
+{
+  "nombreTaller": "Rumos.Tec",
+  "categoria": "0010"
+}
