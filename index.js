@@ -1,6 +1,11 @@
+require('dotenv').config()
+require('./mongo')
+
+const Tecnico = require('./models/Tecnico')
 const express = require('express')
 const cors = require('cors')
-let data = require('./data/data.json')
+const notFount = require('./request/middleware/notFount')
+const handleErrors = require('./request/middleware/handleErrors')
 
 const app = express()
 app.use(cors())
@@ -11,52 +16,82 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/tecnicos', (request, response) => {
-  response.json(data)
+  Tecnico.find({})
+    .then(result => {
+      response.json(result)
+    })
 })
 
-app.get('/api/tecnicos/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const tecnico = data.find(tec => tec.id === id)
+app.get('/api/tecnicos/:id', (request, response, next) => {
+  const { id } = request.params
 
-  if (tecnico) {
-    response.json(tecnico)
-  } else {
-    response.status(404).end()
+  Tecnico.findById(id)
+    .then(tecnicoById => {
+      if (tecnicoById) {
+        response.json(tecnicoById)
+      } else {
+        response.status(404).json({
+          error: 'not fount'
+        })
+      }
+    })
+    .catch(err => {
+      next(err)
+    })
+})
+
+app.delete('/api/tecnicos/:id', (request, response, next) => {
+  const { id } = request.params
+
+  Tecnico.findByIdAndRemove(id)
+    .then(result => response.status(204).end())
+    .catch(error => next(error))
+})
+
+app.post('/api/tecnicos', (request, response) => {
+  const tecnico = request.body
+
+  if (!tecnico.nombreTaller) {
+    return response.status(404).json({
+      error: 'Debes ingresar el nombre del taller'
+    })
   }
-})
 
-app.delete('/api/tecnicos/:id', (request, response) => {
-  const id = Number(request.params.id)
-  data = data.filter(tec => tec.id !== id)
-
-  response.status(204).end()
-})
-
-app.post('/api/tecnicos', (req, res) => {
-  const tecnico = req.body
-  console.log(tecnico)
-
-  const ids = data.map(id => id.id)
-  const maxId = Math.max(...ids)
-
-  const newTecnico = {
-    id: maxId + 1,
+  const newTecnico = new Tecnico({
     nombreTaller: tecnico.nombreTaller,
-    descripcion: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod provident accusantium temporibus numquam voluptatibus libero qui est, molestias ab suscipit rerum.',
+    descripcion: tecnico.descripcion,
     categoria: tecnico.categoria,
-    img: 'https://via.placeholder.com/200x200'
+    img: tecnico.img
 
+  })
+
+  newTecnico.save()
+    .then(tecnicoSaved => {
+      response.json(tecnicoSaved)
+    })
+})
+
+app.put('/api/tecnicos/:id', (request, response, next) => {
+  const { id } = request.params
+  const tecnico = request.body
+
+  const newTecnicoInfo = {
+    nombreTaller: tecnico.nombreTaller,
+    categoria: tecnico.categoria
   }
 
-  data = [...data, newTecnico]
-  res.json(newTecnico)
+  Tecnico.findByIdAndUpdate(id, newTecnicoInfo, { new: true })
+    .then(result => response.json(result))
+    .catch(error => {
+      next(error)
+    })
 })
 
-app.use((req, res) => {
-  res.send('<h1>404: Bad request</h1>')
-})
+app.use(handleErrors)
 
-const PORT = 3001
+app.use(notFount)
+
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`server runing on port ${PORT}`)
 })

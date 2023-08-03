@@ -2,14 +2,31 @@ GET http://localhost:3001/api/tecnicos
 
 ####
 
+GET http://localhost:3001/api/tecnicos/64cbeee8914e72b7fd33fd8c
+
+####
+
 POST http://localhost:3001/api/tecnicos 
 Content-Type: application/json
 
 {
-  "nombreTaller": "Rumos.Tec",
-  "categoria": "0010"
+    "nombreTaller": "reparaciones JL 3",
+    "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod provident accusantium temporibus numquam voluptatibus libero qui est, molestias ab suscipit rerum.",
+    "categoria": "0080",
+    "img": "https://via.placeholder.com/200x200"
 }
 
 ####
 
-DELETE http://localhost:3001/api/tecnicos/2
+DELETE http://localhost:3001/api/tecnicos/64cbe577d30b2a41f546650c 
+
+
+####
+
+PUT http://localhost:3001/api/tecnicos/64cbeee8914e72b7fd33fd8c
+Content-Type: application/json
+
+{
+    "nombreTaller": "reparaciones JL 3 2023",
+    "categoria": "0070"
+}
