@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "nombreTaller": "reparaciones JL 1",
+    "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod provident accusantium temporibus numquam voluptatibus libero qui est, molestias ab suscipit rerum.",
+    "categoria": "0020",
+    "img": "https://via.placeholder.com/200x200"
+  },
+  {
+    "id": 2,
+    "nombreTaller": "reparaciones JL 2",
+    "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod provident accusantium temporibus numquam voluptatibus libero qui est, molestias ab suscipit rerum.",
+    "categoria": "0020",
+    "img": "https://via.placeholder.com/200x200"
+  },
+  {
+    "id": 3,
+    "nombreTaller": "reparaciones JL 3",
+    "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod provident accusantium temporibus numquam voluptatibus libero qui est, molestias ab suscipit rerum.",
+    "categoria": "0020",
+    "img": "https://via.placeholder.com/200x200"
+  },
+  {
+    "id": 4,
+    "nombreTaller": "reparaciones JL 4",
+    "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod provident accusantium temporibus numquam voluptatibus libero qui est, molestias ab suscipit rerum.",
+    "categoria": "0020",
+    "img": "https://via.placeholder.com/200x200"
+  }
+  
+]

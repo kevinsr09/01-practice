@@ -1,11 +1,15 @@
-GET http://localhost:3001/api/tecnicos
+GET https://prueba-server-node.onrender.com/api/tecnicos
 
 ####
 
-POST http://localhost:3001/api/tecnicos 
+POST https://prueba-server-node.onrender.com/api/tecnicos 
 Content-Type: application/json
 
 {
   "nombreTaller": "Rumos.Tec",
   "categoria": "0010"
 }
+
+####
+
+DELETE https://prueba-server-node.onrender.com/api/tecnicos/2
