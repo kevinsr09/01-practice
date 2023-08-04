@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
-const connectionString = process.env.MONGO_DB_URI
+const { MONGO_DB_URI, MONGO_DB_URI_TEST, NODE_ENV } = process.env
+
+const connectionString = (NODE_ENV === 'production')
+  ? MONGO_DB_URI
+  : MONGO_DB_URI_TEST
 
 mongoose.connect(connectionString, {
   autoIndex: true

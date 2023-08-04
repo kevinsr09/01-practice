@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node --watch index.js"
+    "dev": "NODE_ENV=development nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
+    "test": "NODE_ENV=test jest --verbose --silent"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^29.6.2",
     "nodemon": "3.0.1",
-    "standard": "^17.1.0"
+    "standard": "^17.1.0",
+    "supertest": "^6.3.3"
   },
   "dependencies": {
     "cors": "2.8.5",
@@ -20,6 +23,9 @@
     "mongoose": "7.4.1"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "./node_modules/standard/eslintrc.json",
+    "env":{
+      "jest": true
+    }
   }
 }
